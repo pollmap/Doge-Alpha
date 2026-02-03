@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 interface BadgeProps {
   children: ReactNode;
-  variant?: "default" | "positive" | "negative" | "warning" | "info";
+  variant?: "default" | "positive" | "negative" | "warning" | "gold";
   className?: string;
 }
 
@@ -11,12 +11,19 @@ export function Badge({ children, variant = "default", className }: BadgeProps) 
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium",
-        variant === "default" && "bg-[var(--color-surface)] text-[var(--color-text-secondary)]",
-        variant === "positive" && "bg-[#238636]/20 text-[#3fb950]",
-        variant === "negative" && "bg-[#da3633]/20 text-[#f85149]",
-        variant === "warning" && "bg-[#d29922]/20 text-[#e3b341]",
-        variant === "info" && "bg-[#3b82f6]/20 text-[#58a6ff]",
+        "inline-flex items-center text-[11px] leading-4 px-1.5 py-0.5 rounded-[2px] font-medium",
+
+        variant === "default" &&
+          "border border-[var(--c-border-subtle)] bg-[var(--c-bg-surface)] text-[var(--c-text-secondary)]",
+        variant === "positive" &&
+          "bg-[var(--c-positive-bg)] text-[var(--c-positive-text)]",
+        variant === "negative" &&
+          "bg-[var(--c-negative-bg)] text-[var(--c-negative-text)]",
+        variant === "warning" &&
+          "bg-[var(--c-warning)]/10 text-[var(--c-warning)]",
+        variant === "gold" &&
+          "bg-[var(--c-gold-bg)] text-[var(--c-gold)]",
+
         className
       )}
     >

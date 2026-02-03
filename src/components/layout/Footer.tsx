@@ -1,40 +1,28 @@
-import { Github, Heart } from "lucide-react";
+import { Github } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="border-t border-[var(--color-border)] bg-[var(--color-bg)]">
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)]">
-            <span>{"\u{1F415}"}</span>
-            <span className="font-semibold text-[var(--color-text-primary)]">Canis Alpha</span>
-            <span>|</span>
-            <span className="flex items-center gap-1">
-              Made with <Heart className="w-3 h-3 text-[var(--color-doge-gold)] fill-current" /> for DOGE Community
-            </span>
+    <footer className="border-t border-[var(--c-border-subtle)]">
+      <div className="max-w-[1440px] mx-auto px-6 py-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[var(--c-text-tertiary)]">
+          <div className="flex items-center gap-3">
+            <span className="font-medium text-[var(--c-text-secondary)]">DOGE Alpha</span>
+            <span className="hidden sm:inline">&middot;</span>
+            <span>Binance &middot; Upbit &middot; Blockchair &middot; CoinGecko</span>
           </div>
 
-          <div className="flex items-center gap-4 text-sm text-[var(--color-text-secondary)]">
-            <span>도지코인 분석의 정석</span>
+          <div className="flex items-center gap-4">
+            <span>투자 조언이 아닙니다</span>
             <a
-              href="https://github.com/pollmap/Canis-Alpha"
+              href="https://github.com/pollmap/Doge-Alpha"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 hover:text-[var(--color-text-primary)] transition-colors"
+              className="flex items-center gap-1 hover:text-[var(--c-text-secondary)] transition-colors"
             >
-              <Github className="w-4 h-4" />
-              GitHub
+              <Github className="w-3 h-3" />
+              <span>GitHub</span>
             </a>
           </div>
-        </div>
-
-        <div className="mt-4 pt-4 border-t border-[var(--color-border)] text-xs text-[var(--color-text-secondary)] text-center">
-          <p>
-            이 사이트는 투자 조언을 제공하지 않습니다. 모든 투자 결정은 본인의 판단하에 이루어져야 합니다.
-          </p>
-          <p className="mt-1">
-            데이터 출처: Binance, Upbit, Blockchair, CoinGecko | 실시간 데이터는 10초마다 갱신됩니다.
-          </p>
         </div>
       </div>
     </footer>

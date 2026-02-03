@@ -1,79 +1,236 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════
+   CANIS ALPHA — Design System
+   Professional financial data dashboard
+   ═══════════════════════════════════════════════════════ */
+
 @theme inline {
-  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
-
-  --color-doge-gold: #c2a633;
-  --color-doge-gold-light: #f0d878;
-  --color-doge-gold-dark: #9a7f1f;
-
-  --color-positive: #238636;
-  --color-negative: #da3633;
-  --color-warning: #d29922;
-  --color-info: #3b82f6;
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
 }
 
-/* Dark theme (default) */
+/* ── Dark Theme (default) ──────────────────────────── */
 :root,
 .dark {
-  --color-bg: #0d1117;
-  --color-card: #161b22;
-  --color-surface: #21262d;
-  --color-border: #30363d;
-  --color-text-primary: #f0f6fc;
-  --color-text-secondary: #8b949e;
+  --c-bg-primary: #0a0c10;
+  --c-bg-secondary: #0d1117;
+  --c-bg-elevated: #161b22;
+  --c-bg-surface: #1c2128;
+  --c-bg-hover: rgba(255, 255, 255, 0.04);
+  --c-bg-active: rgba(255, 255, 255, 0.06);
+
+  --c-border-subtle: #21262d;
+  --c-border-default: #30363d;
+  --c-border-strong: #484f58;
+
+  --c-text-primary: #e6edf3;
+  --c-text-secondary: #7d8590;
+  --c-text-tertiary: #656c76;
+  --c-text-disabled: #484f58;
+  --c-text-inverse: #0a0c10;
+
+  --c-positive: #238636;
+  --c-positive-text: #3fb950;
+  --c-positive-bg: rgba(35, 134, 54, 0.12);
+  --c-negative: #da3633;
+  --c-negative-text: #f85149;
+  --c-negative-bg: rgba(218, 54, 51, 0.12);
+  --c-warning: #d29922;
+  --c-warning-bg: rgba(210, 153, 34, 0.12);
+  --c-info: #58a6ff;
+  --c-info-bg: rgba(88, 166, 255, 0.12);
+
+  --c-gold: #c2a633;
+  --c-gold-hover: #d4b84c;
+  --c-gold-bg: rgba(194, 166, 51, 0.10);
+  --c-gold-border: rgba(194, 166, 51, 0.25);
+
+  --c-chart-1: #58a6ff;
+  --c-chart-2: #3fb950;
+  --c-chart-3: #d29922;
+  --c-chart-4: #f778ba;
+  --c-chart-5: #a371f7;
+  --c-chart-grid: rgba(255, 255, 255, 0.04);
+  --c-chart-axis: #484f58;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(194, 166, 51, 0.08);
+
   color-scheme: dark;
 }
 
-/* Light theme */
+/* ── Light Theme ───────────────────────────────────── */
 .light {
-  --color-bg: #ffffff;
-  --color-card: #f6f8fa;
-  --color-surface: #eaeef2;
-  --color-border: #d0d7de;
-  --color-text-primary: #1f2328;
-  --color-text-secondary: #656d76;
+  --c-bg-primary: #f6f8fa;
+  --c-bg-secondary: #ffffff;
+  --c-bg-elevated: #ffffff;
+  --c-bg-surface: #f0f2f5;
+  --c-bg-hover: rgba(0, 0, 0, 0.03);
+  --c-bg-active: rgba(0, 0, 0, 0.06);
+
+  --c-border-subtle: #d8dee4;
+  --c-border-default: #d0d7de;
+  --c-border-strong: #afb8c1;
+
+  --c-text-primary: #1f2328;
+  --c-text-secondary: #656d76;
+  --c-text-tertiary: #8b949e;
+  --c-text-disabled: #afb8c1;
+  --c-text-inverse: #ffffff;
+
+  --c-positive: #1a7f37;
+  --c-positive-text: #1a7f37;
+  --c-positive-bg: rgba(26, 127, 55, 0.08);
+  --c-negative: #cf222e;
+  --c-negative-text: #cf222e;
+  --c-negative-bg: rgba(207, 34, 46, 0.08);
+  --c-warning: #9a6700;
+  --c-warning-bg: rgba(154, 103, 0, 0.08);
+  --c-info: #0969da;
+  --c-info-bg: rgba(9, 105, 218, 0.08);
+
+  --c-gold: #9a7f1f;
+  --c-gold-hover: #b8961e;
+  --c-gold-bg: rgba(154, 127, 31, 0.08);
+  --c-gold-border: rgba(154, 127, 31, 0.25);
+
+  --c-chart-grid: rgba(0, 0, 0, 0.04);
+  --c-chart-axis: #8b949e;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px rgba(154, 127, 31, 0.06);
+
   color-scheme: light;
 }
 
+/* ── Base ──────────────────────────────────────────── */
+html {
+  font-feature-settings: "ss01", "ss02", "cv01";
+}
+
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
+  background: var(--c-bg-primary);
+  color: var(--c-text-primary);
   font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ── Typography utilities ──────────────────────────── */
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.text-mono-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.01em;
+}
+
+/* ── Scrollbar ─────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-bg);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-surface);
-  border-radius: 4px;
+  background: var(--c-border-subtle);
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-border);
+  background: var(--c-border-default);
 }
 
-.recharts-tooltip-wrapper {
-  z-index: 100 !important;
-}
-
+/* ── Animations ────────────────────────────────────── */
 @keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-up {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out;
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes value-flash-positive {
+  0% { background-color: var(--c-positive-bg); }
+  100% { background-color: transparent; }
+}
+
+@keyframes value-flash-negative {
+  0% { background-color: var(--c-negative-bg); }
+  100% { background-color: transparent; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.3s ease-out;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--c-bg-surface) 25%,
+    var(--c-bg-elevated) 37%,
+    var(--c-bg-surface) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ── Chart overrides ───────────────────────────────── */
+.recharts-tooltip-wrapper {
+  z-index: 100 !important;
+}
+
+.recharts-text {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  fill: var(--c-text-tertiary) !important;
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: var(--c-chart-grid) !important;
+}
+
+/* ── Selection ─────────────────────────────────────── */
 ::selection {
-  background-color: var(--color-doge-gold);
-  color: #000;
+  background-color: var(--c-gold);
+  color: var(--c-text-inverse);
+}
+
+/* ── Focus ─────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--c-gold);
+  outline-offset: 2px;
+  border-radius: 2px;
 }

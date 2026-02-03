@@ -1,104 +1,106 @@
 "use client";
 
-import { TrendingUp, TrendingDown, Minus } from "lucide-react";
-import { Card } from "@/components/ui/Card";
-import { Tooltip } from "@/components/ui/Tooltip";
+import { Card, CardBody } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { usePrice } from "@/hooks/usePrice";
-import { useSettingsStore } from "@/store/useSettingsStore";
 import { formatCurrency, formatPercent, formatRelativeTime } from "@/lib/utils/formatters";
-import { cn } from "@/lib/utils/cn";
 
 export function PriceCard() {
   const { data: price, isLoading, error } = usePrice();
-  const { currency } = useSettingsStore();
 
   if (isLoading) {
     return (
-      <Card variant="metric">
-        <Skeleton className="h-5 w-24 mb-3" />
-        <Skeleton className="h-9 w-36 mb-3" />
-        <Skeleton className="h-5 w-20" />
+      <Card variant="highlight">
+        <CardBody className="p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Skeleton className="h-3 w-16 animate-shimmer" />
+            <Skeleton className="h-2 w-2 rounded-full animate-shimmer" />
+          </div>
+          <Skeleton className="h-8 w-36 mb-3 animate-shimmer" />
+          <Skeleton className="h-5 w-20 mb-4 animate-shimmer" />
+          <div className="border-t border-[var(--c-border-subtle)] pt-3 grid grid-cols-2 gap-3">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i}>
+                <Skeleton className="h-3 w-12 mb-1 animate-shimmer" />
+                <Skeleton className="h-4 w-20 animate-shimmer" />
+              </div>
+            ))}
+          </div>
+        </CardBody>
       </Card>
     );
   }
 
   if (error || !price) {
     return (
-      <Card variant="metric">
-        <p className="text-[var(--color-text-secondary)] text-sm">DOGE 가격</p>
-        <p className="text-[var(--color-negative)] mt-2">로드 실패</p>
-        <p className="text-xs text-[var(--color-text-secondary)] mt-1">API 연결을 확인하세요</p>
+      <Card variant="highlight">
+        <CardBody className="p-4">
+          <span className="text-[11px] text-[var(--c-text-tertiary)]">DOGE / USD</span>
+          <p className="text-[var(--c-negative)] text-sm mt-2">Failed to load</p>
+          <p className="text-[11px] text-[var(--c-text-tertiary)] mt-1">Check API connection</p>
+        </CardBody>
       </Card>
     );
   }
 
   const isPositive = price.change24h >= 0;
-  const isNeutral = Math.abs(price.change24h) < 0.01;
-  const TrendIcon = isNeutral ? Minus : isPositive ? TrendingUp : TrendingDown;
 
   return (
-    <Card variant="metric" glow>
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-[var(--color-text-secondary)] text-sm font-medium">
-          DOGE/{currency}
-        </span>
-        <Tooltip content={`업데이트: ${formatRelativeTime(price.timestamp)}`}>
-          <div className="w-2 h-2 rounded-full bg-[var(--color-positive)] animate-pulse" />
-        </Tooltip>
-      </div>
-
-      <div className="flex items-baseline gap-2 mb-3">
-        <span className="text-3xl font-bold text-[var(--color-text-primary)] font-mono tracking-tight">
-          {currency === "KRW"
-            ? formatCurrency(price.krw, "KRW")
-            : formatCurrency(price.usd, "USD")}
-        </span>
-      </div>
-
-      <div className="flex items-center gap-2">
-        <div
-          className={cn(
-            "flex items-center gap-1 px-2 py-0.5 rounded-full text-sm font-medium",
-            isNeutral
-              ? "bg-[var(--color-surface)] text-[var(--color-text-secondary)]"
-              : isPositive
-              ? "bg-[#238636]/20 text-[#3fb950]"
-              : "bg-[#da3633]/20 text-[#f85149]"
-          )}
-        >
-          <TrendIcon className="w-3.5 h-3.5" />
-          {formatPercent(price.change24h)}
+    <Card variant="highlight">
+      <CardBody className="p-4">
+        {/* Header: pair label + live dot */}
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[11px] text-[var(--c-text-tertiary)] tracking-wide uppercase">
+            DOGE / USD
+          </span>
+          <div
+            className="w-1.5 h-1.5 rounded-full bg-[var(--c-positive)] animate-pulse"
+            title={`Updated: ${formatRelativeTime(price.timestamp)}`}
+          />
         </div>
-        <span className="text-[var(--color-text-secondary)] text-xs">24h</span>
-      </div>
 
-      <div className="mt-4 pt-3 border-t border-[var(--color-border)] grid grid-cols-2 gap-y-2 text-sm">
-        <div>
-          <span className="text-[var(--color-text-secondary)] text-xs">USD</span>
-          <p className="text-[var(--color-text-primary)] font-mono text-sm">
+        {/* Main price */}
+        <div className="flex items-baseline gap-3 mb-2">
+          <span className="text-[28px] text-mono-value font-bold text-[var(--c-text-primary)] leading-none">
             {formatCurrency(price.usd, "USD")}
-          </p>
+          </span>
+          <Badge variant={isPositive ? "positive" : "negative"}>
+            {formatPercent(price.change24h)}
+          </Badge>
         </div>
-        <div>
-          <span className="text-[var(--color-text-secondary)] text-xs">BTC</span>
-          <p className="text-[var(--color-text-primary)] font-mono text-sm">
-            {price.btc.toFixed(8)}
-          </p>
+
+        {/* Divider */}
+        <div className="border-t border-[var(--c-border-subtle)] my-3" />
+
+        {/* 2x2 sub-metric grid */}
+        <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+          <div>
+            <span className="text-[11px] text-[var(--c-text-tertiary)] block">KRW</span>
+            <span className="text-[13px] text-mono-value text-[var(--c-text-primary)]">
+              {formatCurrency(price.krw, "KRW")}
+            </span>
+          </div>
+          <div>
+            <span className="text-[11px] text-[var(--c-text-tertiary)] block">BTC</span>
+            <span className="text-[13px] text-mono-value text-[var(--c-text-primary)]">
+              {price.btc.toFixed(8)}
+            </span>
+          </div>
+          <div>
+            <span className="text-[11px] text-[var(--c-text-tertiary)] block">24h High</span>
+            <span className="text-[13px] text-mono-value text-[var(--c-text-primary)]">
+              {formatCurrency(price.high24h, "USD")}
+            </span>
+          </div>
+          <div>
+            <span className="text-[11px] text-[var(--c-text-tertiary)] block">24h Low</span>
+            <span className="text-[13px] text-mono-value text-[var(--c-text-primary)]">
+              {formatCurrency(price.low24h, "USD")}
+            </span>
+          </div>
         </div>
-        <div>
-          <span className="text-[var(--color-text-secondary)] text-xs">24h 고가</span>
-          <p className="text-[var(--color-text-primary)] font-mono text-sm">
-            {formatCurrency(price.high24h, "USD")}
-          </p>
-        </div>
-        <div>
-          <span className="text-[var(--color-text-secondary)] text-xs">24h 저가</span>
-          <p className="text-[var(--color-text-primary)] font-mono text-sm">
-            {formatCurrency(price.low24h, "USD")}
-          </p>
-        </div>
-      </div>
+      </CardBody>
     </Card>
   );
 }

@@ -1,32 +1,29 @@
 "use client";
 
 import { Sun, Moon } from "lucide-react";
-import { Button } from "@/components/ui/Button";
 import { useSettingsStore } from "@/store/useSettingsStore";
-import { useEffect } from "react";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useSettingsStore();
 
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-      root.classList.remove("light");
-    } else {
-      root.classList.add("light");
-      root.classList.remove("dark");
-    }
-  }, [theme]);
+  const toggle = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.classList.remove("dark", "light");
+    document.documentElement.classList.add(next);
+  };
 
   return (
-    <Button
-      variant="ghost"
-      size="sm"
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      aria-label={theme === "dark" ? "라이트 모드로 전환" : "다크 모드로 전환"}
+    <button
+      onClick={toggle}
+      className="p-2 rounded text-[var(--c-text-tertiary)] hover:text-[var(--c-text-secondary)] hover:bg-[var(--c-bg-hover)] transition-colors"
+      aria-label="테마 전환"
     >
-      {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-    </Button>
+      {theme === "dark" ? (
+        <Sun className="w-3.5 h-3.5" strokeWidth={1.75} />
+      ) : (
+        <Moon className="w-3.5 h-3.5" strokeWidth={1.75} />
+      )}
+    </button>
   );
 }
