@@ -15,9 +15,37 @@ export interface UpbitTicker {
   timestamp: number;
 }
 
+const CORS_PROXIES = [
+  (url: string) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+  (url: string) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+];
+
 export async function getDogeKrwTicker(): Promise<UpbitTicker> {
-  const res = await fetch(`${API_ENDPOINTS.UPBIT}/ticker?markets=KRW-DOGE`);
-  if (!res.ok) throw new Error("Failed to fetch Upbit ticker");
-  const data = await res.json();
-  return data[0];
+  const targetUrl = `${API_ENDPOINTS.UPBIT}/ticker?markets=KRW-DOGE`;
+
+  // Try direct first
+  try {
+    const res = await fetch(targetUrl);
+    if (res.ok) {
+      const data = await res.json();
+      return data[0];
+    }
+  } catch {
+    // CORS blocked, try proxies
+  }
+
+  // Try CORS proxies
+  for (const proxy of CORS_PROXIES) {
+    try {
+      const res = await fetch(proxy(targetUrl));
+      if (res.ok) {
+        const data = await res.json();
+        return Array.isArray(data) ? data[0] : data;
+      }
+    } catch {
+      continue;
+    }
+  }
+
+  throw new Error("Failed to fetch Upbit ticker (CORS blocked)");
 }
