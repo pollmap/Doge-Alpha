@@ -1,0 +1,111 @@
+{
+  "events": [
+    {
+      "id": "e001",
+      "date": "2013-12-06",
+      "title": "도지코인 탄생",
+      "description": "Billy Markus와 Jackson Palmer가 도지코인을 출시. 인터넷 밈 시바견을 로고로 사용한 재미있는 암호화폐로 시작.",
+      "category": "milestone",
+      "priceAtEvent": 0.00026,
+      "impact": "positive"
+    },
+    {
+      "id": "e002",
+      "date": "2014-01-19",
+      "title": "자메이카 봅슬레이 팀 후원",
+      "description": "도지코인 커뮤니티가 자메이카 봅슬레이 팀의 소치 동계올림픽 출전을 위해 약 $30,000 상당의 도지코인 모금.",
+      "category": "milestone",
+      "priceAtEvent": 0.00055,
+      "impact": "positive"
+    },
+    {
+      "id": "e003",
+      "date": "2021-01-28",
+      "title": "Reddit WSB 펌프",
+      "description": "Reddit WallStreetBets 커뮤니티가 GameStop에 이어 도지코인에 관심을 보이며 가격 급등.",
+      "category": "market",
+      "priceAtEvent": 0.078,
+      "priceChange24h": 800,
+      "impact": "positive"
+    },
+    {
+      "id": "e004",
+      "date": "2021-02-04",
+      "title": "일론 머스크 첫 DOGE 트윗",
+      "description": "일론 머스크가 트위터에 'Doge'를 언급하며 도지코인에 대한 지지 표명.",
+      "category": "elon",
+      "priceAtEvent": 0.045,
+      "priceChange24h": 50,
+      "impact": "positive"
+    },
+    {
+      "id": "e005",
+      "date": "2021-05-08",
+      "title": "일론 SNL 출연",
+      "description": "일론 머스크가 Saturday Night Live에 출연해 도지코인을 언급. 방송 중 가격 하락.",
+      "category": "elon",
+      "priceAtEvent": 0.65,
+      "priceChange24h": -30,
+      "impact": "negative"
+    },
+    {
+      "id": "e006",
+      "date": "2021-05-09",
+      "title": "ATH $0.7376 달성",
+      "description": "도지코인이 사상 최고가 $0.7376을 기록.",
+      "category": "market",
+      "priceAtEvent": 0.7376,
+      "impact": "positive"
+    },
+    {
+      "id": "e007",
+      "date": "2022-04-14",
+      "title": "일론 머스크 트위터 인수 시도",
+      "description": "일론 머스크가 트위터 인수를 발표하며 도지코인 결제 가능성 기대감 상승.",
+      "category": "elon",
+      "priceAtEvent": 0.15,
+      "priceChange24h": 10,
+      "impact": "positive"
+    },
+    {
+      "id": "e008",
+      "date": "2023-04-03",
+      "title": "트위터 로고 도지 변경",
+      "description": "트위터 로고가 일시적으로 도지 이미지로 변경되며 가격 급등.",
+      "category": "elon",
+      "priceAtEvent": 0.10,
+      "priceChange24h": 30,
+      "impact": "positive"
+    },
+    {
+      "id": "e009",
+      "date": "2024-03-14",
+      "title": "X Payments 머니 라이선스 획득",
+      "description": "X(구 트위터)가 미국 내 머니 트랜스미터 라이선스를 다수 주에서 획득.",
+      "category": "partnership",
+      "priceAtEvent": 0.18,
+      "priceChange24h": 5,
+      "impact": "positive"
+    },
+    {
+      "id": "e010",
+      "date": "2025-05-04",
+      "title": "DOGE-1 미션 발사 확정",
+      "description": "SpaceX가 도지코인을 물리적으로 달에 보내는 DOGE-1 미션 발사 일정 확정.",
+      "category": "elon",
+      "priceAtEvent": 0.22,
+      "priceChange24h": 15,
+      "impact": "positive"
+    },
+    {
+      "id": "e011",
+      "date": "2026-02-01",
+      "title": "일론 'Yes' 트윗",
+      "description": "일론 머스크가 DOGE-1 미션 진행 여부 질문에 'Yes'로 답변.",
+      "category": "elon",
+      "priceAtEvent": 0.215,
+      "priceChange24h": 8,
+      "impact": "positive"
+    }
+  ]
+}
