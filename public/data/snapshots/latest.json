@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-02-03T00:00:00Z",
+  "price": {
+    "usd": 0.215,
+    "krw": 290,
+    "btc": 0.0000032,
+    "change24h": 5.2,
+    "change7d": 12.5,
+    "high24h": 0.22,
+    "low24h": 0.20,
+    "volume24h": 1500000000,
+    "marketCap": 31000000000,
+    "rank": 8
+  },
+  "kimchi": {
+    "premium": 3.2,
+    "absoluteKrw": 9.0,
+    "upbitPrice": 290,
+    "binancePrice": 0.215,
+    "exchangeRate": 1335,
+    "timestamp": "2026-02-03T00:00:00Z"
+  },
+  "onchain": {
+    "hashrate": 892000000000000,
+    "difficulty": 12345678,
+    "blockHeight": 5234567,
+    "blockTime": 62,
+    "mempoolSize": 1234,
+    "totalAddresses": 6500000,
+    "activeAddresses24h": 125432,
+    "newAddresses24h": 8234,
+    "whaleAddresses": 892,
+    "top100Holdings": 42.5,
+    "transactions24h": 89234,
+    "avgTxValue": 1523.5,
+    "totalTransferred24h": 135823456,
+    "avgFee": 0.01,
+    "medianFee": 0.008,
+    "timestamp": "2026-02-03T00:00:00Z"
+  },
+  "valuation": {
+    "nvt": 32.5,
+    "nvtSignal": 35.2,
+    "s2f": 25.2,
+    "s2fPrice": 0.35,
+    "timestamp": "2026-02-03T00:00:00Z"
+  },
+  "volatility": {
+    "dvi7d": 68.2,
+    "dvi30d": 72.5,
+    "dvi90d": 65.8,
+    "btcCorrelation": 0.72,
+    "level": "high",
+    "timestamp": "2026-02-03T00:00:00Z"
+  },
+  "adoption": {
+    "mai": 45,
+    "components": {
+      "activeAddressGrowth": 5.2,
+      "transactionGrowth": 8.1,
+      "merchantCount": 25,
+      "socialMentions": 62,
+      "devActivity": 55
+    },
+    "timestamp": "2026-02-03T00:00:00Z"
+  }
+}
