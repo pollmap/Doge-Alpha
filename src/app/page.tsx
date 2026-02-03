@@ -6,7 +6,7 @@ import { KimchiCard } from "@/components/dashboard/KimchiCard";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { PriceChart } from "@/components/charts/PriceChart";
 import { EventList } from "@/components/dashboard/EventList";
-import { Card } from "@/components/ui/Card";
+import { Card, CardHeader, CardBody } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Progress } from "@/components/ui/Progress";
 import { useSnapshot } from "@/hooks/useSnapshot";
@@ -23,15 +23,15 @@ export default function DashboardPage() {
   const { selectedTimeframe, setTimeframe } = useDashboardStore();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 space-y-6 animate-fade-in">
-      {/* Hero tagline */}
-      <div className="text-center mb-2">
-        <p className="text-sm text-[var(--color-text-secondary)]">
+    <div className="max-w-[1440px] mx-auto px-6 py-6 space-y-6 animate-fade-in">
+      {/* Tagline */}
+      <div className="text-center">
+        <p className="text-[11px] text-[var(--c-text-tertiary)]">
           도지코인 분석의 정석 &mdash; 밈을 넘어 데이터로
         </p>
       </div>
 
-      {/* Top metric cards */}
+      {/* Top metric cards — 4-col grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <PriceCard />
         <KimchiCard />
@@ -52,116 +52,137 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Main chart + sidebar */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* Chart section: 2/3 chart + 1/3 sidebar */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* Price chart — 2/3 width */}
         <div className="lg:col-span-2">
-          <Card className="p-4">
-            <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-              <h2 className="text-lg font-semibold text-[var(--color-text-primary)]">
-                가격 차트
-              </h2>
-              <div className="flex gap-1">
-                {TIMEFRAMES.map((tf) => (
-                  <Button
-                    key={tf}
-                    variant={selectedTimeframe === tf ? "primary" : "ghost"}
-                    size="sm"
-                    onClick={() => setTimeframe(tf)}
-                  >
-                    {tf}
-                  </Button>
-                ))}
+          <Card variant="default">
+            <CardHeader>
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <h2 className="text-sm font-semibold text-[var(--c-text-primary)]">
+                  가격 차트
+                </h2>
+                {/* Timeframe buttons */}
+                <div className="flex gap-1">
+                  {TIMEFRAMES.map((tf) => (
+                    <Button
+                      key={tf}
+                      variant={selectedTimeframe === tf ? "primary" : "ghost"}
+                      size="sm"
+                      onClick={() => setTimeframe(tf)}
+                    >
+                      {tf}
+                    </Button>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="h-[320px]">
-              <PriceChart />
-            </div>
+            </CardHeader>
+            <CardBody>
+              <div className="h-[320px]">
+                <PriceChart />
+              </div>
+            </CardBody>
           </Card>
         </div>
 
-        {/* Side panels */}
+        {/* Sidebar — 1/3 width */}
         <div className="space-y-4">
-          {/* Volatility */}
-          <Card className="p-4">
-            <h3 className="text-sm font-medium text-[var(--color-text-secondary)] mb-3">
-              변동성 지수 (DVI)
-            </h3>
-            {snapshot?.volatility ? (
-              <>
-                <div className="flex items-baseline gap-2 mb-3">
-                  <span className="text-2xl font-bold font-mono text-[var(--color-text-primary)]">
-                    {snapshot.volatility.dvi30d.toFixed(1)}
-                  </span>
-                  <span
-                    className="text-sm font-medium"
-                    style={{ color: VOLATILITY_LEVELS[snapshot.volatility.level]?.color }}
-                  >
-                    {VOLATILITY_LEVELS[snapshot.volatility.level]?.label}
-                  </span>
-                </div>
-                <Progress value={snapshot.volatility.dvi30d} max={100} size="md" />
-                <p className="text-xs text-[var(--color-text-secondary)] mt-2">
-                  30일 연율화 변동성 기준
-                </p>
-              </>
-            ) : (
-              <div className="animate-pulse h-16 bg-[var(--color-surface)] rounded" />
-            )}
+          {/* Volatility card */}
+          <Card variant="default">
+            <CardHeader>
+              <span className="text-sm font-semibold text-[var(--c-text-primary)]">
+                변동성 지수 (DVI)
+              </span>
+            </CardHeader>
+            <CardBody>
+              {snapshot?.volatility ? (
+                <>
+                  <div className="flex items-baseline gap-2 mb-3">
+                    <span className="text-2xl font-bold text-mono-value text-[var(--c-text-primary)]">
+                      {snapshot.volatility.dvi30d.toFixed(1)}
+                    </span>
+                    <span
+                      className="text-[11px] font-medium"
+                      style={{ color: VOLATILITY_LEVELS[snapshot.volatility.level]?.color }}
+                    >
+                      {VOLATILITY_LEVELS[snapshot.volatility.level]?.label}
+                    </span>
+                  </div>
+                  <Progress value={snapshot.volatility.dvi30d} max={100} size="md" />
+                  <p className="text-[11px] text-[var(--c-text-tertiary)] mt-2">
+                    30일 연율화 변동성 기준
+                  </p>
+                </>
+              ) : (
+                <div className="animate-pulse h-16 bg-[var(--c-bg-surface)] rounded" />
+              )}
+            </CardBody>
           </Card>
 
-          {/* Adoption */}
-          <Card className="p-4">
-            <h3 className="text-sm font-medium text-[var(--color-text-secondary)] mb-3">
-              채택 지수 (MAI)
-            </h3>
-            {snapshot?.adoption ? (
-              <>
-                <div className="flex items-baseline gap-2 mb-3">
-                  <span className="text-2xl font-bold font-mono text-[var(--color-text-primary)]">
-                    {snapshot.adoption.mai}
-                  </span>
-                  <span className="text-sm text-[var(--color-text-secondary)]">/ 100</span>
-                </div>
-                <Progress value={snapshot.adoption.mai} max={100} showLabel size="md" />
-                <p className="mt-2 text-xs text-[var(--color-text-secondary)]">
-                  대중 화폐까지 {snapshot.adoption.mai}% 도달
-                </p>
-              </>
-            ) : (
-              <div className="animate-pulse h-16 bg-[var(--color-surface)] rounded" />
-            )}
+          {/* Adoption card */}
+          <Card variant="default">
+            <CardHeader>
+              <span className="text-sm font-semibold text-[var(--c-text-primary)]">
+                채택 지수 (MAI)
+              </span>
+            </CardHeader>
+            <CardBody>
+              {snapshot?.adoption ? (
+                <>
+                  <div className="flex items-baseline gap-2 mb-3">
+                    <span className="text-2xl font-bold text-mono-value text-[var(--c-text-primary)]">
+                      {snapshot.adoption.mai}
+                    </span>
+                    <span className="text-[11px] text-[var(--c-text-tertiary)]">/ 100</span>
+                  </div>
+                  <Progress value={snapshot.adoption.mai} max={100} size="md" />
+                  <p className="text-[11px] text-[var(--c-text-tertiary)] mt-2">
+                    대중 화폐까지 {snapshot.adoption.mai}% 도달
+                  </p>
+                </>
+              ) : (
+                <div className="animate-pulse h-16 bg-[var(--c-bg-surface)] rounded" />
+              )}
+            </CardBody>
           </Card>
 
-          {/* NVT */}
-          <Card className="p-4">
-            <h3 className="text-sm font-medium text-[var(--color-text-secondary)] mb-3">
-              NVT 비율
-            </h3>
-            {snapshot?.valuation ? (
-              <>
-                <span className="text-2xl font-bold font-mono text-[var(--color-text-primary)]">
-                  {snapshot.valuation.nvt.toFixed(1)}
-                </span>
-                <p className="text-xs text-[var(--color-text-secondary)] mt-2">
-                  {snapshot.valuation.nvt < 20
-                    ? "저평가 구간 (트랜잭션 대비 시총 낮음)"
-                    : snapshot.valuation.nvt < 50
-                    ? "적정 구간"
-                    : "고평가 구간 (트랜잭션 대비 시총 높음)"}
-                </p>
-              </>
-            ) : (
-              <div className="animate-pulse h-12 bg-[var(--color-surface)] rounded" />
-            )}
+          {/* NVT card */}
+          <Card variant="default">
+            <CardHeader>
+              <span className="text-sm font-semibold text-[var(--c-text-primary)]">
+                NVT 비율
+              </span>
+            </CardHeader>
+            <CardBody>
+              {snapshot?.valuation ? (
+                <>
+                  <span className="text-2xl font-bold text-mono-value text-[var(--c-text-primary)]">
+                    {snapshot.valuation.nvt.toFixed(1)}
+                  </span>
+                  <p className="text-[11px] text-[var(--c-text-tertiary)] mt-2">
+                    {snapshot.valuation.nvt < 20
+                      ? "저평가 구간 (트랜잭션 대비 시총 낮음)"
+                      : snapshot.valuation.nvt < 50
+                      ? "적정 구간"
+                      : "고평가 구간 (트랜잭션 대비 시총 높음)"}
+                  </p>
+                </>
+              ) : (
+                <div className="animate-pulse h-12 bg-[var(--c-bg-surface)] rounded" />
+              )}
+            </CardBody>
           </Card>
         </div>
       </div>
 
       {/* Onchain metrics */}
-      <div>
-        <h2 className="text-lg font-semibold text-[var(--color-text-primary)] mb-4">
+      <section>
+        <h2 className="text-sm font-semibold text-[var(--c-text-primary)] mb-3">
           온체인 지표
         </h2>
+        <p className="text-[11px] text-[var(--c-text-tertiary)] mb-4">
+          도지코인 네트워크의 실시간 온체인 데이터
+        </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <MetricCard
             title="해시레이트"
@@ -192,15 +213,15 @@ export default function DashboardPage() {
             loading={onchainLoading}
           />
         </div>
-      </div>
+      </section>
 
       {/* Events */}
-      <div>
-        <h2 className="text-lg font-semibold text-[var(--color-text-primary)] mb-4">
+      <section>
+        <h2 className="text-sm font-semibold text-[var(--c-text-primary)] mb-3">
           최근 이벤트
         </h2>
         <EventList limit={5} />
-      </div>
+      </section>
     </div>
   );
 }

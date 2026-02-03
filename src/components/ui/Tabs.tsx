@@ -6,26 +6,47 @@ interface TabsProps<T extends string> {
   tabs: readonly T[];
   active: T;
   onChange: (tab: T) => void;
-  labels?: Record<T, string>;
+  labels?: Partial<Record<T, string>>;
+  className?: string;
 }
 
-export function Tabs<T extends string>({ tabs, active, onChange, labels }: TabsProps<T>) {
+export function Tabs<T extends string>({
+  tabs,
+  active,
+  onChange,
+  labels,
+  className,
+}: TabsProps<T>) {
   return (
-    <div className="flex gap-1 p-1 rounded-lg bg-[var(--color-bg)]">
-      {tabs.map((tab) => (
-        <button
-          key={tab}
-          onClick={() => onChange(tab)}
-          className={cn(
-            "px-3 py-1.5 text-xs font-medium rounded-md transition-colors",
-            active === tab
-              ? "bg-[var(--color-doge-gold)] text-black"
-              : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
-          )}
-        >
-          {labels?.[tab] ?? tab}
-        </button>
-      ))}
+    <div
+      className={cn(
+        "flex gap-4 border-b border-[var(--c-border-subtle)]",
+        className
+      )}
+    >
+      {tabs.map((tab) => {
+        const isActive = active === tab;
+        return (
+          <button
+            key={tab}
+            type="button"
+            role="tab"
+            aria-selected={isActive}
+            onClick={() => onChange(tab)}
+            className={cn(
+              "relative pb-2 text-[13px] font-medium transition-colors duration-150",
+              "focus:outline-none focus-visible:text-[var(--c-text-primary)]",
+              isActive
+                ? "text-[var(--c-gold)]"
+                : "text-[var(--c-text-tertiary)] hover:text-[var(--c-text-secondary)]",
+              isActive &&
+                "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[var(--c-gold)] after:rounded-full"
+            )}
+          >
+            {labels?.[tab] ?? tab}
+          </button>
+        );
+      })}
     </div>
   );
 }

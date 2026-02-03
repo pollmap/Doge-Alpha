@@ -1,97 +1,104 @@
 import { type ReactNode } from "react";
-import { TrendingUp, TrendingDown, Minus, HelpCircle } from "lucide-react";
-import { Card } from "@/components/ui/Card";
-import { Tooltip } from "@/components/ui/Tooltip";
+import { HelpCircle } from "lucide-react";
+import { Card, CardBody } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
 import { Skeleton } from "@/components/ui/Skeleton";
+import { Tooltip } from "@/components/ui/Tooltip";
 import { cn } from "@/lib/utils/cn";
 
 interface MetricCardProps {
   title: string;
   value: string | number;
-  change?: number;
-  changeLabel?: string;
+  subtitle?: string;
   icon?: ReactNode;
   tooltip?: string;
+  change?: number;
+  changeLabel?: string;
   loading?: boolean;
   error?: boolean;
-  subtitle?: string;
 }
 
 export function MetricCard({
   title,
   value,
-  change,
-  changeLabel = "24h",
+  subtitle,
   icon,
   tooltip,
+  change,
+  changeLabel = "24h",
   loading = false,
   error = false,
-  subtitle,
 }: MetricCardProps) {
   if (loading) {
     return (
-      <Card variant="metric">
-        <Skeleton className="h-4 w-20 mb-2" />
-        <Skeleton className="h-8 w-24" />
+      <Card variant="default">
+        <CardBody className="p-3">
+          <Skeleton className="h-3 w-20 mb-2 animate-shimmer" />
+          <Skeleton className="h-6 w-24 animate-shimmer" />
+        </CardBody>
       </Card>
     );
   }
 
   if (error) {
     return (
-      <Card variant="metric">
-        <p className="text-[var(--color-text-secondary)] text-sm">{title}</p>
-        <p className="text-[var(--color-negative)]">오류</p>
+      <Card variant="default">
+        <CardBody className="p-3">
+          <span className="text-[11px] text-[var(--c-text-tertiary)]">{title}</span>
+          <p className="text-[var(--c-negative)] text-sm mt-1">Error</p>
+        </CardBody>
       </Card>
     );
   }
 
   const hasChange = change !== undefined;
   const isPositive = change !== undefined && change >= 0;
-  const isNeutral = change !== undefined && Math.abs(change) < 0.01;
-  const TrendIcon = isNeutral ? Minus : isPositive ? TrendingUp : TrendingDown;
 
   return (
-    <Card variant="metric">
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center gap-2">
-          {icon && <span className="text-[var(--color-doge-gold)]">{icon}</span>}
-          <span className="text-[var(--color-text-secondary)] text-sm">{title}</span>
-        </div>
-        {tooltip && (
-          <Tooltip content={tooltip}>
-            <HelpCircle className="w-3.5 h-3.5 text-[var(--color-text-secondary)] cursor-help" />
-          </Tooltip>
-        )}
-      </div>
-
-      <span className="text-2xl font-bold font-mono text-[var(--color-text-primary)]">
-        {value}
-      </span>
-
-      {subtitle && (
-        <p className="text-xs text-[var(--color-text-secondary)] mt-1">{subtitle}</p>
-      )}
-
-      {hasChange && (
-        <div className="flex items-center gap-1 mt-2">
-          <div
-            className={cn(
-              "flex items-center gap-0.5 text-sm",
-              isNeutral
-                ? "text-[var(--color-text-secondary)]"
-                : isPositive
-                ? "text-[var(--color-positive)]"
-                : "text-[var(--color-negative)]"
+    <Card variant="default">
+      <CardBody className="p-3">
+        {/* Top row: icon + title + tooltip */}
+        <div className="flex items-center justify-between mb-1.5">
+          <div className="flex items-center gap-1.5">
+            {icon && (
+              <span className="text-[var(--c-text-tertiary)] [&>svg]:w-3.5 [&>svg]:h-3.5">
+                {icon}
+              </span>
             )}
-          >
-            <TrendIcon className="w-3 h-3" />
-            {isPositive ? "+" : ""}
-            {change.toFixed(2)}%
+            <span className="text-[11px] text-[var(--c-text-tertiary)] leading-none">
+              {title}
+            </span>
           </div>
-          <span className="text-[var(--color-text-secondary)] text-xs">{changeLabel}</span>
+          {tooltip && (
+            <Tooltip content={tooltip}>
+              <HelpCircle className="w-3 h-3 text-[var(--c-text-disabled)] cursor-help" />
+            </Tooltip>
+          )}
         </div>
-      )}
+
+        {/* Value */}
+        <span className="text-[20px] text-mono-value font-semibold text-[var(--c-text-primary)] leading-tight block">
+          {value}
+        </span>
+
+        {/* Optional subtitle */}
+        {subtitle && (
+          <span className="text-[11px] text-[var(--c-text-tertiary)] mt-0.5 block">
+            {subtitle}
+          </span>
+        )}
+
+        {/* Optional change badge */}
+        {hasChange && (
+          <div className={cn("flex items-center gap-1.5 mt-1.5")}>
+            <Badge variant={isPositive ? "positive" : "negative"}>
+              {isPositive ? "+" : ""}
+              {change.toFixed(2)}%
+            </Badge>
+            <span className="text-[11px] text-[var(--c-text-disabled)]">{changeLabel}</span>
+          </div>
+        )}
+      </CardBody>
     </Card>
   );
 }

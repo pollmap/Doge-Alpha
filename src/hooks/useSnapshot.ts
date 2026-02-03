@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import type { Snapshot } from "@/lib/types";
 
 function getBasePath() {
-  return typeof window !== "undefined" && window.location.pathname.startsWith("/Canis-Alpha")
-    ? "/Canis-Alpha"
+  return typeof window !== "undefined" && window.location.pathname.startsWith("/Doge-Alpha")
+    ? "/Doge-Alpha"
     : "";
 }
 

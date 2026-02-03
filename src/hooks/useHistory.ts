@@ -5,8 +5,8 @@ import { getDogeKlines } from "@/lib/api/binance";
 import type { PriceHistory, HistoricalEvent } from "@/lib/types";
 
 function getBasePath() {
-  return typeof window !== "undefined" && window.location.pathname.startsWith("/Canis-Alpha")
-    ? "/Canis-Alpha"
+  return typeof window !== "undefined" && window.location.pathname.startsWith("/Doge-Alpha")
+    ? "/Doge-Alpha"
     : "";
 }
 
